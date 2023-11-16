@@ -1,6 +1,6 @@
 # laravel-vue
  
-1. сначала ставим ларавел
+1. сначала ставим Laravel
 ```composer create-project laravel/laravel <наименование проекта>```
 
 2. потом через GitHub Desktop добавляем новый проект, размещаем его в гит
@@ -17,6 +17,7 @@ Password: 7q8pG2lDTz
 Port number: 3306
 
 5. Вносим изменения для работы с устаревшей базой данных MySql в облаке
+
 config\database.php:
         ```'mysql' => [
             ...
@@ -30,3 +31,11 @@ app\Providers\AppServiceProvider.php:
         Schema::defaultStringLength(191); 
     }```
 
+6. Накатываем Breeze
+```composer require laravel/breeze --dev```
+
+7. Ставим структуру Breeze + Vue
+```php artisan breeze:install
+Which Breeze stack would you like to install - vue
+Would you like any optional features - none
+Which testing framework do you prefer - PHPUnit```

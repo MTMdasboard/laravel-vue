@@ -150,5 +150,19 @@
   "yourself with my demo project": "yourself with my demo project",
   "The backend of this site is built on Laravel": "The backend of this site is built on <b>Laravel</b>",
   "The frontend is a monolithic Vue": "The frontend is a monolithic <b>Vue</b>",
-  "The database hangs in the MySQL cloud": "The database hangs in the <b>MySQL</b> cloud"
+  "The database hangs in the MySQL cloud": "The database hangs in the <b>MySQL</b> cloud",
+  "Get started": "Get started",
+  "Create a post:": "Create a post:",
+  "Title": "Title",
+  "Content": "Content",
+  "Image": "Image",
+  "Choose a file": "Choose a file",
+  "Max file size: 50kb": "Max file size: 50kb",
+  "Clear": "Clear",
+  "Max file size: 100kb": "Max file size: 100kb",
+  "Published At": "Published At",
+  "Publication date": "Publication date",
+  "Author": "Author",
+  "View publication:": "View publication:",
+  "Change a post:": "Change a post:"
 }

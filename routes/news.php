@@ -6,21 +6,21 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get("/News", [NewsController::class, "index"])->name("news");
+Route::get("/news", [NewsController::class, "index"])->name("news");
 
-Route::get("/News/Create", [NewsController::class, "create"])->name("news.create");
+Route::get("/news/create", [NewsController::class, "create"])->name("news.create");
 
-Route::post("/News", [NewsController::class, "store"])->name("news.store");
+Route::patch("/news", [NewsController::class, "store"])->name("news.store");
 
-Route::get("/News/{news}", [NewsController::class, "show"])->name("news.show");
+Route::get("/news/{news}", [NewsController::class, "show"])->name("news.show");
 
-Route::get("/News/{news}/edit", [NewsController::class, "edit"])->name("news.edit");
+Route::get("/news/{news}/edit", [NewsController::class, "edit"])->name("news.edit");
 
-Route::put("/News/{news}", [NewsController::class, "update"])->name("news.update");
+Route::patch("/news/{news}", [NewsController::class, "update"])->name("news.update");
 
-Route::delete("/News/{news}", [NewsController::class, "delete"])->name("news.delete");
+Route::delete("/news/{news}", [NewsController::class, "delete"])->name("news.delete");
 
-Route::get("/News/{news}/like", [NewsController::class, "like"])->name("news.like");
+Route::get("/news/{news}/like", [NewsController::class, "like"])->name("news.like");
 
 // Route::resource('/posts/{post}/comments', CommentController::class)->only(['index', 'show']);
 

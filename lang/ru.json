@@ -150,5 +150,19 @@
   "yourself with my demo project": "с моим демонстрационным проектом",
   "The backend of this site is built on Laravel": "Бэкэнд этого сайта построен на <b>Laravel</b>",
   "The frontend is a monolithic Vue": "Фронтендом поставлен монолитный <b>Vue</b>",
-  "The database hangs in the MySQL cloud": "Базой данных висит в облаке <b>MySQL</b>"
+  "The database hangs in the MySQL cloud": "Базой данных висит в облаке <b>MySQL</b>",
+  "Get started": "Начать",
+  "Create a post:": "Создать публикацию:",
+  "Title": "Заголовок",
+  "Content": "Содержание",
+  "Image": "Изображение",
+  "Choose a file": "Выберите файл",
+  "Max file size: 50kb": "Максимальный размер файла: 50кб",
+  "Clear": "Очистить",
+  "Max file size: 100kb": "Максимальный размер файла: 100 КБ.",
+  "Published At": "Опубликовано на",
+  "Publication date": "Дата публикации",
+  "Author": "Автор",
+  "View publication:": "Посмотр публикации:",
+  "Change a post:": "Изменить публикацию:"
 }

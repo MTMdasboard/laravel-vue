@@ -10,7 +10,7 @@ export default {
     },
     methods: {
         setLocale(locale) {
-            router.post("/api/locale", {
+            router.post("/locale", {
                 'language': locale,
             });
             this.$i18n.locale = locale;

@@ -10,8 +10,9 @@ import { createI18n } from 'vue-i18n';
 import messages from '../../lang/messages';
 
 const i18n = createI18n({
-    locale: 'ru',
+    locale: document.documentElement.lang || 'ru',
     fallbackLocale: 'en',
+    warnHtmlInMessage: 'off',
     messages
 });
 
@@ -21,6 +22,7 @@ createInertiaApp({
     title: (title) => `${title}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
+        // console.log('page props %o', props);
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(i18n)

@@ -130,6 +130,7 @@ return [
     'required_without'     => ':Attribute жолы :values болмағанда толтырылуы керек.',
     'required_without_all' => ':Attribute жолы ешбір :values болмағанда толтырылуы керек.',
     'same'                 => ':Attribute және :other сәйкес болуы керек.',
+    'base64_image'         => ':Attribute 1КБ пен 100КБ арасындағы жарамды кескін болуы керек.',
     'size'                 => [
         'array'   => ':Attribute жиымы :size элементтен тұруы керек.',
         'file'    => ':Attribute көлемі :size килобайт болуы керек.',

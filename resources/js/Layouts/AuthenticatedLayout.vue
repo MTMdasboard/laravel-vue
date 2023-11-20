@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import ApplicationLogo from '@/Components/media/ApplicationLogo.vue';
 import LocaleSelector from '@/Components/LocaleSelector.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -20,166 +20,203 @@ const props = defineProps({
         default: false
     }
 });
+
 </script>
 
 <template>
     <div>
-        <div class="min-h-screen         
-        bg-dots-darker bg-center bg-gray-100 
-        dark:bg-dots-lighter dark:bg-gray-900 
-        ">
+        <div class="min-h-screen flex flex-col items-center justify-between
+            bg-dots-darker bg-center bg-gray-100 
+            dark:bg-dots-lighter dark:bg-gray-900 
+            ">
 
-            <!-- Navbar -->
-            <nav class="bg-white border-b border-gray-100 navbar">
-                <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex h-16">
+            <div class="w-full">
 
-                        <!-- Logo -->
-                        <div class="shrink-0 flex items-center">
-                            <Link :href="route('dashboard')">
-                            <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
-                            </Link>
-                        </div>
+                <!-- Navbar -->
+                <nav class="bg-white border-b border-gray-100 navbar">
+                    <!-- Primary Navigation Menu -->
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex h-16">
 
-                        <div v-if="canLogin" class="grid w-full">
+                            <!-- Logo -->
+                            <div class="shrink-0 flex items-center">
+                                <Link :href="route('dashboard')">
+                                <ApplicationLogo class="block h-9 w-auto fill-current text-gray-800" />
+                                </Link>
+                            </div>
 
-                            <!-- Navigation Links -->
-                            <div v-if="$page.props.auth.user" class="grid grid-cols-2 justify-items-stretch">
+                            <div v-if="canLogin" class="grid w-full grid-cols-2">
 
-                                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <!-- Navigation Links -->
+                                <div v-if="$page.props.auth.user" class="grid w-full grid-cols-2 justify-items-stretch">
 
-                                    <NavLink :href="route('home')" :active="route().current('home')">
-                                        {{ $t('home') }}
-                                    </NavLink>
+                                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                                    <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                        {{ $t('Dashboard') }}
-                                    </NavLink>
+                                        <NavLink :href="route('home')" :active="route().current('home')">
+                                            {{ $t('home') }}
+                                        </NavLink>
 
-                                </div>
+                                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                            {{ $t('Dashboard') }}
+                                        </NavLink>
 
-                                <div class="col-start-2 justify-self-end flex">
+                                        <NavLink :href="route('news')" :active="route().current('news')">
+                                            {{ $t('News') }}
+                                        </NavLink>
 
-                                    <LocaleSelector />
+                                    </div>
 
-                                    <div class="hidden sm:flex sm:items-center sm:ms-6">
-                                        <!-- Settings Dropdown -->
-                                        <div class="ms-3 relative">
-                                            <Dropdown align="right" width="48">
-                                                <template #trigger>
-                                                    <span class="inline-flex rounded-md">
-                                                        <button type="button"
-                                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                                            {{ $page.props.auth.user.name }}
+                                    <div class="col-start-2 justify-self-end flex">
 
-                                                            <svg class="ms-2 -me-0.5 h-4 w-4"
-                                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                                                fill="currentColor">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-                                                    </span>
-                                                </template>
+                                        <LocaleSelector />
 
-                                                <template #content>
-                                                    <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }} </DropdownLink>
-                                                    <DropdownLink :href="route('logout')" method="post" as="button">
-                                                        {{ $t('Log Out') }}
-                                                    </DropdownLink>
-                                                </template>
-                                            </Dropdown>
+                                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                                            <!-- Settings Dropdown -->
+                                            <div class="ms-3 relative">
+                                                <Dropdown align="right" width="48">
+                                                    <template #trigger>
+                                                        <span class="inline-flex rounded-md">
+                                                            <button type="button"
+                                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                                                {{ $page.props.auth.user.name }}
+
+                                                                <svg class="ms-2 -me-0.5 h-4 w-4"
+                                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                                                    fill="currentColor">
+                                                                    <path fill-rule="evenodd"
+                                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                                        clip-rule="evenodd" />
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                    </template>
+
+                                                    <template #content>
+                                                        <DropdownLink :href="route('profile.edit')"> {{ $t('Profile') }}
+                                                        </DropdownLink>
+                                                        <DropdownLink :href="route('logout')" method="post" as="button">
+                                                            {{ $t('Log Out') }}
+                                                        </DropdownLink>
+                                                    </template>
+                                                </Dropdown>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Hamburger -->
-                                    <div class="-me-2 flex items-center sm:hidden">
-                                        <button @click="showingNavigationDropdown = !showingNavigationDropdown"
-                                            class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
-                                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                                <path :class="{
-                                                    hidden: showingNavigationDropdown,
-                                                    'inline-flex': !showingNavigationDropdown,
-                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M4 6h16M4 12h16M4 18h16" />
-                                                <path :class="{
-                                                    hidden: !showingNavigationDropdown,
-                                                    'inline-flex': showingNavigationDropdown,
-                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
+                                        <!-- Hamburger -->
+                                        <div class="-me-2 flex items-center sm:hidden">
+                                            <button @click="showingNavigationDropdown = !showingNavigationDropdown"
+                                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                                    <path :class="{
+                                                        hidden: showingNavigationDropdown,
+                                                        'inline-flex': !showingNavigationDropdown,
+                                                    }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M4 6h16M4 12h16M4 18h16" />
+                                                    <path :class="{
+                                                        hidden: !showingNavigationDropdown,
+                                                        'inline-flex': showingNavigationDropdown,
+                                                    }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
+                                <template v-else>
 
-                            <template v-else>
+                                    <div class="justify-self-start hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                                <div class="justify-self-end space-x-2 sm:space-x-8 sm:-my-px sm:ms-10 flex">
+                                        <NavLink :href="route('home')" :active="route().current('home')">
+                                            {{ $t('home') }}
+                                        </NavLink>
 
-                                    <LocaleSelector />
+                                        <NavLink :href="route('news')" :active="route().current('news')">
+                                            {{ $t('News') }}
+                                        </NavLink>
 
-                                    <NavLink :href="route('login')" :active="route().current('login')">
-                                        {{ $t('Login') }}
-                                    </NavLink>
+                                    </div>
 
-                                    <NavLink v-if="canRegister" :href="route('register')"
-                                        :active="route().current('register')">
-                                        {{ $t('Register') }}
-                                    </NavLink>
+                                    <div class="justify-self-end col-start-2 space-x-2 sm:space-x-8 sm:-my-px sm:ms-10 flex">
 
-                                </div>
+                                        <LocaleSelector />
 
-                            </template>
+                                        <NavLink :href="route('login')" :active="route().current('login')">
+                                            {{ $t('Login') }}
+                                        </NavLink>
 
-                        </div>
-                    </div>
-                </div>
+                                        <NavLink v-if="canRegister" :href="route('register')"
+                                            :active="route().current('register')">
+                                            {{ $t('Register') }}
+                                        </NavLink>
 
-                <!-- Responsive Navigation Menu -->
-                <div  v-if="$page.props.auth.user" :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            {{$t("Dashboard")}}
-                        </ResponsiveNavLink>
-                    </div>
+                                    </div>
 
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}
+                                </template>
+
                             </div>
                         </div>
+                    </div>
 
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> {{ $t('Profile') }} </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                {{ $t('Log Out') }}
+                    <!-- Responsive Navigation Menu -->
+                    <div v-if="$page.props.auth.user"
+                        :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:hidden">
+                        <div class="pt-2 pb-3 space-y-1">
+                            <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                {{ $t("Dashboard") }}
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('news')" :active="route().current('news')">
+                                {{ $t("News") }}
                             </ResponsiveNavLink>
                         </div>
+
+                        <!-- Responsive Settings Options -->
+                        <div class="pt-4 pb-1 border-t border-gray-200">
+                            <div class="px-4">
+                                <div class="font-medium text-base text-gray-800">
+                                    {{ $page.props.auth.user.name }}
+                                </div>
+                                <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}
+                                </div>
+                            </div>
+
+                            <div class="mt-3 space-y-1">
+                                <ResponsiveNavLink :href="route('profile.edit')"> {{ $t('Profile') }} </ResponsiveNavLink>
+                                <ResponsiveNavLink :href="route('logout')" method="post" as="button">
+                                    {{ $t('Log Out') }}
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
-                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-                    <slot name="header" />
+                <!-- Page Heading -->
+                <header class="bg-white shadow" v-if="$slots.header">
+                    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                        <slot name="header" />
 
-                </div>
-            </header>
+                    </div>
+                </header>
+
+            </div>
 
             <!-- Page Content -->
-            <main>
+            <main class="flex w-full">
                 <slot />
+
             </main>
+
+            <!-- Page Footer -->
+            <footer class="bg-white shadow flex w-full">
+                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 text-gray-500 text-center">
+                    <span className="font-bold">©</span>
+                    <span> Создано для демонстрации </span>
+                    <span className="font-semibold">Мажитов Т. М.</span>
+                </div>
+            </footer>
+
         </div>
     </div>
 </template>
@@ -188,9 +225,9 @@ const props = defineProps({
 .bg-dots-darker {
     background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
 }
+
 @media (prefers-color-scheme: dark) {
     .dark\:bg-dots-lighter {
         background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
     }
-}
-</style>
+}</style>

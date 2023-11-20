@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "compressorjs": "^1.2.1",
         "vue-i18n": "^9.7.0"
     }
 }

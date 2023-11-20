@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
+// for ($i=0; $i < 12; $i++) { 
+//     News::create([
+//         'user_id' => 1,
+//         'title' => fake()->sentence(2),
+//         'content' => fake()->text,
+//         'published_at' => new Carbon( fake()->date ),
+//         'views' => 0,
+//         'likes' => 0,
+//     ]);
+// }
+
 class NewsController extends Controller
 {
     public function index(Request $request)
@@ -18,35 +29,34 @@ class NewsController extends Controller
             "limit" => ["nullable", "integer", "min:1", "max:100"],
             "page" => ["nullable", "integer", "min:1"],
         ]);
-        
-        $limit = $validated['limit']?? 12;
+
+        $limit = $validated['limit'] ?? 9;
 
         $newsList = News::query()->latest('published_at')->paginate($limit);
 
-        return Inertia::render('News/Index', compact('newsList'));
+        return Inertia::render('news/index', compact('newsList'));
     }
 
     public function create()
     {
-        return Inertia::render('News/Create');
+        $userList = User::all(['id', 'name']);
+
+        return Inertia::render('news/create', compact('userList'));
+
     }
 
     public function store(Request $request)
-    {   
+    {
         $validated = $request->validate(News::getRules());
-        
+
         $newsOnce = News::query()->firstOrCreate([
-            'user_id' => User::query()->value('id'),
+            'user_id' => $validated['user_id'],
             'title' => $validated['title'],
         ], [
             'content' => $validated['content'],
             'published_at' => new Carbon($validated['published_at'] ?? null),
-            'filename' => $validated['filename']?? null,
-            'filepath' => $validated['filepath']?? null,
-            'likes' => $validated['likes']?? 0,
+            'base64image' => $validated['base64image'] ?? null,
         ]);
-
-        // alert(__('Сохранено!'));
 
         return Redirect::route('news.show', $newsOnce->id);
 
@@ -55,28 +65,32 @@ class NewsController extends Controller
     public function show(Request $request, $news)
     {
 
-        $newsOnce = News::query()->findOrFail($news, ['id', 'title', 'content', 'published_at', 'filename', 'filepath', 'likes']);
+        $newsOnce = News::query()->findOrFail($news, ['id', 'user_id', 'title', 'content', 'published_at', 'base64image', 'views', 'likes']);
 
-        return Inertia::render('News/Show', compact('newsOnce'));
+        $newsOnce->increment('views');
+
+        if ($newsOnce->user_id) {
+            $newsOnce->user = User::query()->findOrFail($newsOnce->user_id, ['name']);
+        }
+
+        return Inertia::render('news/show', compact('newsOnce'));
     }
 
     public function edit(Request $request, $news)
     {
 
-        $newsOnce = News::query()->findOrFail($news, ['id', 'title', 'content', 'published_at', "published", 'filename', 'filepath', 'likes']);
+        $newsOnce = News::query()->findOrFail($news, ['id', 'user_id', 'title', 'content', 'published_at', 'base64image']);
 
-        return Inertia::render('News/Edit', compact('newsOnce'));
+        $userList = User::all(['id', 'name']);
+
+        return Inertia::render('news/edit', compact(['newsOnce', 'userList']));
     }
 
     public function update(Request $request, $news)
     {
-        $validated = $request->validate([
-            ... News::getRules()
-        ]);
+        $validated = $request->validate(News::getRules());
 
         News::query()->where('id', $news)->update($validated);
-
-        // alert(__('Сохранено!'));
 
         return Redirect::route('news.show', $news);
     }
@@ -88,6 +102,10 @@ class NewsController extends Controller
 
     public function like($news)
     {
-        return News::query()->where('id', $news)->increment('like');
+        News::query()->where('id', $news)->increment('likes');
+
+        $updatedLikes = News::query()->where('id', $news)->value('likes');
+
+        return response()->json(['likes' => $updatedLikes]);
     }
 }

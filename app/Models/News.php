@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Rules\Base64ImageRule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rules\File;
@@ -15,14 +16,14 @@ class News extends Model
         'title',
         'content',
         'published_at',
-        'filename',
-        'filepath',
+        'base64image',
+        'views',
         'likes',
     ];
 
     protected $casts = [
-        'published' => 'boolean',
-        'published_at' => 'date',
+        'published_at' => 'datetime:Y-m-d h:m',
+        'views' => 'integer',
         'likes' => 'integer',
     ];
 
@@ -32,9 +33,8 @@ class News extends Model
             'user_id' => ['nullable', 'integer', 'exists:users,id'],
             'title' =>['required','string','max:255'],
             'content' =>['nullable', 'string','max:10000'],
-            'filename' =>['nullable', 'string','max:255'],
-            'filepath' =>['nullable', File::image()->min('1kb')->max('50kb')],
-            'likes' =>['nullable', 'integer', 'max:2147483647'],
+            'published_at' =>['nullable', 'string', 'date'],
+            'base64image' =>['nullable', new Base64ImageRule()],
         ];
     }
 }

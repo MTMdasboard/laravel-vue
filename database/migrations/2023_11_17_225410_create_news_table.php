@@ -22,9 +22,9 @@ return new class extends Migration
 
             $table->timestamp('published_at')->nullable();
 
-            $table->string('filename',60)->nullable(); 
-            $table->string('filepath')->nullable();
+            $table->mediumText('base64image')->nullable();
 
+            $table->integer('views')->default(0);
             $table->integer('likes')->default(0);
         });
     }

@@ -33,7 +33,22 @@ class Localization
 }
 ```
 
-5. Добавляем конечную точку api в routes/api.php
+4. В app\Http\Kernel.php регаем мидлвэйр
+```
+        'web' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \App\Http\Middleware\Localization::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\HandleInertiaRequests::class,
+            \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+        ],
+```
+
+5. Добавляем конечную точку api в routes/web.php - по хорошему он должен весеть в api.php, но там нет возможности регать данные в session
 ```
 <?php
 use Illuminate\\Support\\Facades\\Route;
@@ -99,7 +114,7 @@ export default {
     },
     methods: {
         setLocale(locale) {
-            router.post("/api/locale", {
+            router.post("/locale", {
                 'language': locale,
             });
             this.$i18n.locale = locale;

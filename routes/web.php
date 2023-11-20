@@ -35,4 +35,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('locale', function () {
+    // Validate
+    $validated = request()->validate([
+        'language' => ['required'],
+    ]);
+    // Set locale
+    App::setLocale($validated['language']);
+    // Session
+    session()->put('locale', $validated['language']);
+    // Response
+    return redirect()->back();
+});
+
 require __DIR__.'/auth.php';

@@ -1,9 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import SelfImage from '@/Components/SelfImage.vue';
-import LaravelLogo from '@/Components/LaravelLogo.vue';
-import VueLogo from '@/Components/VueLogo.vue';
-import MySqlLogo from '@/Components/MySqlLogo.vue';
+import LaravelLogo from '@/Components/media/LaravelLogo.vue';
+import MySqlLogo from '@/Components/media/MySqlLogo.vue';
+import VueLogo from '@/Components/media/VueLogo.vue';
+import SelfImage from '@/Components/media/SelfImage.vue';
+import RouterButton from '@/Components/RouterButton.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -34,7 +35,7 @@ const props = defineProps({
             <h1 class="font-semibold text-2xl sm:text-4xl text-gray-800 leading-tight text-center">{{ $t('Welcome!') }}</h1>
         </template>
 
-        <div class="py-6 space-y-6">
+        <div class="py-6 space-y-6 flex flex-col w-full justify-center">
 
             <div class="flex justify-center">
                 <SelfImage />
@@ -44,7 +45,11 @@ const props = defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-2 sm:p-6 text-gray-600 text-center font-semibold">
                         <p>{{ $t('I invite you to familiarize') }}</p>
-                        <p>{{$t('yourself with my demo project')}}</p>
+                        <p>{{ $t('yourself with my demo project') }}</p>
+                        <RouterButton :href="route('news')"
+                            class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            {{ $t('Get started') }}
+                        </RouterButton>
                     </div>
                 </div>
             </div>
@@ -67,6 +72,7 @@ const props = defineProps({
             </div>
 
         </div>
+
 
     </AuthenticatedLayout>
 </template>

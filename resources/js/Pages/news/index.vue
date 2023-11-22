@@ -65,7 +65,7 @@ const displayedPages = computed(() => {
                 </h1>
 
                 <RouterButton :href="route('news.create')"
-                    class="inline-flex items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
+                    class="inline-flex h-10 items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -97,11 +97,11 @@ const displayedPages = computed(() => {
                             }}
                         </p>
                         <!-- Отображение заголовка -->
-                        <h2 class="text-lg font-semibold mb-2 text-center">
+                        <h2 class="text-lg font-semibold mb-2 text-center line-clamp-2">
                             {{ item.title }}
                         </h2>
                         <!-- Отображение текста content -->
-                        <p v-if="item.content" class="text-gray-600 text-sm line-clamp-3">
+                        <p v-if="item.content" class="text-gray-600 text-sm line-clamp-3 text-justify">
                             {{ item.content }}
                         </p>
                         </Link>

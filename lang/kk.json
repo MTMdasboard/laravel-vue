@@ -164,5 +164,11 @@
   "Publication date": "Жарияланған күні",
   "Author": "Автор",
   "View publication:": "Жарияланымды көру:",
-  "Change a post:": "Жазбаны өзгерту:"
+  "Change a post:": "Жазбаны өзгерту:",
+  "Change a post": "Постты өзгерту",
+  "Comments": "Пікірлер",
+  "Add": "Косу",
+  "Are you sure you want to delete this publication": "Осы жарияланымды шынымен жойғыңыз келе ме?",
+  "Once a publication is deleted": "Жарияланым жойылғаннан кейін оның барлық ресурстары мен деректері біржола жойылады. \nЖазбаны біржола жойғыңыз келетінін растаңыз.",
+  "Delete News": "Жаңалықты жою"
 }

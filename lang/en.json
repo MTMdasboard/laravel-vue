@@ -164,5 +164,11 @@
   "Publication date": "Publication date",
   "Author": "Author",
   "View publication:": "View publication:",
-  "Change a post:": "Change a post:"
+  "Change a post:": "Change a post:",
+  "Change a post": "Change a post",
+  "Comments": "Comments",
+  "Add": "Add",
+  "Are you sure you want to delete this publication": "Are you sure you want to delete this publication?",
+  "Once a publication is deleted": "Once a publication is deleted, all its resources and data will be permanently deleted. Please confirm that you want to permanently delete the post.",
+  "Delete News": "Delete News"
 }

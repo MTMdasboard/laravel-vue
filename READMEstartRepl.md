@@ -37,9 +37,9 @@ deploymentTarget = "cloudrun"
 
 4. Потом запускаем команды в shell
 composer update
-composer require laravel/octane
-composer require spiral/roadrunner-cli
+composer require laravel/octane spiral/roadrunner-cli spiral/roadrunner-http
 ./vendor/bin/rr get-binary
+php artisan octane:install
 composer install --optimize-autoloader --no-dev
 npm install
 npm run build

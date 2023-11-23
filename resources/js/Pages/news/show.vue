@@ -2,6 +2,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import RouterButton from "@/Components/RouterButton.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { onMounted, ref, watchEffect } from "vue";
 
 const props = defineProps({
@@ -35,20 +37,51 @@ const incrementLikes = async () => {
     }
 };
 
-const comments = ref(['Комментарий 1', 'Комментарий 2', 'Комментарий 3']); // Пример оставленных комментариев
 const showCommentField = ref(false); // Отображение/скрытие поля для добавления комментария
-const newComment = ref(''); // Новый комментарий
+const newComment = ref(""); // Новый комментарий
 
 const toggleCommentField = () => {
-  showCommentField.value = !showCommentField.value;
+    showCommentField.value = !showCommentField.value;
+    if (showCommentField.value) {
+        setTimeout(() => {
+            const commentsAnchor = document.getElementById("commentsAnchor");
+            commentsAnchor.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }, 250);
+    }
 };
 
-const addComment = () => {
-  if (newComment.value.trim() !== '') {
-    comments.value.push(newComment.value);
-    newComment.value = '';
-    showCommentField.value = false;
-  }
+const addComment = async () => {
+    if (newComment.value.trim() !== "") {
+        try {
+            // Получение CSRF-токена из мета-тега
+
+            const token = document.head.querySelector(
+                'meta[name="csrf-token"]'
+            ).content;
+
+            const response = await fetch(
+                `/news/${props.newsOnce.id}/comments`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": token,
+                    },
+                    body: JSON.stringify({ content: newComment.value }),
+                }
+            );
+
+            if (response.ok) {
+                props.newsOnce.comments.unshift({ content: newComment.value });
+                newComment.value = "";
+            }
+        } catch (error) {
+            console.error("Произошла ошибка:", error);
+        }
+    }
 };
 </script>
 
@@ -60,7 +93,7 @@ const addComment = () => {
             <div class="flex">
                 <RouterButton
                     :href="route('news')"
-                    class="inline-flex h-10 items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer"
+                    class="inline-flex h-10 cursor-pointer items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -78,13 +111,13 @@ const addComment = () => {
                     </svg>
                 </RouterButton>
                 <h1
-                    class="flex-1 font-semibold text-2xl sm:text-4xl text-gray-800 leading-tight text-center"
+                    class="flex-1 text-center text-2xl font-semibold leading-tight text-gray-800 sm:text-4xl"
                 >
                     {{ newsOnce.title }}
                 </h1>
                 <RouterButton
                     :href="route('news.edit', { news: newsOnce.id })"
-                    class="inline-flex h-10 items-center px-3 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 cursor-pointer"
+                    class="inline-flex h-10 cursor-pointer items-center rounded-md border border-transparent bg-gray-800 px-3 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -104,11 +137,12 @@ const addComment = () => {
             </div>
         </template>
 
-        <div class="py-12 flex justify-center w-full">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="flex w-full justify-center py-12">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <!-- Изображение -->
                 <div class="flex justify-center">
                     <div
-                        class="relative w-fit flex items-center justify-center mb-4"
+                        class="relative mb-4 flex w-fit items-center justify-center"
                     >
                         <img
                             :src="
@@ -117,39 +151,39 @@ const addComment = () => {
                                     : '/news.jpeg'
                             "
                             alt="News Image"
-                            class="object-cover rounded-lg p-2"
+                            class="rounded-lg object-cover p-2"
                         />
 
                         <div
                             class="absolute bottom-0 left-0 right-0 flex justify-between"
                         >
                             <div
-                                class="flex items-center p-2 rounded-lg bg-white shadow-lg font-semibold text-xs tracking-widest"
+                                class="flex items-center rounded-lg bg-white p-2 text-xs font-semibold tracking-widest shadow-lg"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-6 w-6 mr-2 text-gray-400"
+                                    class="mr-2 h-6 w-6 text-gray-400"
                                     viewBox="0 0 488.85 488.85"
                                     fill="currentColor"
                                 >
                                     <path
                                         d="M244.425,98.725c-93.4,0-178.1,51.1-240.6,134.1c-5.1,6.8-5.1,16.3,0,23.1c62.5,83.1,147.2,134.2,240.6,134.2
-                                                s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025
-                                                c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3
-                                                C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7
-                                                c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"
+                                                    s178.1-51.1,240.6-134.1c5.1-6.8,5.1-16.3,0-23.1C422.525,149.825,337.825,98.725,244.425,98.725z M251.125,347.025
+                                                    c-62,3.9-113.2-47.2-109.3-109.3c3.2-51.2,44.7-92.7,95.9-95.9c62-3.9,113.2,47.2,109.3,109.3
+                                                    C343.725,302.225,302.225,343.725,251.125,347.025z M248.025,299.625c-33.4,2.1-61-25.4-58.8-58.8c1.7-27.6,24.1-49.9,51.7-51.7
+                                                    c33.4-2.1,61,25.4,58.8,58.8C297.925,275.625,275.525,297.925,248.025,299.625z"
                                     />
                                 </svg>
                                 <span>{{ props.newsOnce.views }}</span>
                             </div>
                             <button
-                                class="reset-hover inline-flex items-center p-2 rounded-lg bg-white shadow-lg border border-transparent font-semibold text-xs hover:text-white focus:text-white tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                class="reset-hover inline-flex items-center rounded-lg border border-transparent bg-white p-2 text-xs font-semibold tracking-widest shadow-lg transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
                                 @click="incrementLikes"
                                 :ref="likesButton"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-5 w-5 mr-2 text-gray-400"
+                                    class="mr-2 h-5 w-5 text-gray-400"
                                     viewBox="0 0 1024 1024"
                                     fill="currentColor"
                                 >
@@ -162,16 +196,18 @@ const addComment = () => {
                         </div>
                     </div>
                 </div>
+
+                <!-- Контент -->
                 <div
-                    class="bg-white overflow-hidden shadow-lg sm:rounded-lg p-6"
+                    class="overflow-hidden bg-white p-6 shadow-lg sm:rounded-lg"
                 >
                     <div
                         v-if="props.newsOnce.content"
-                        class="text-gray-900 text-lg mt-4 text-justify"
+                        class="mt-4 text-justify text-lg text-gray-900"
                     >
                         {{ props.newsOnce.content }}
                     </div>
-                    <div class="grid grid-cols-2 text-gray-600 text-sm mt-4">
+                    <div class="mt-4 grid grid-cols-2 text-sm text-gray-600">
                         <div
                             v-if="props.newsOnce.user?.name"
                             class="flex items-center"
@@ -180,7 +216,7 @@ const addComment = () => {
                         </div>
                         <div
                             v-if="props.newsOnce.published_at"
-                            class="flex items-center col-start-2 justify-end"
+                            class="col-start-2 flex items-center justify-end"
                         >
                             {{
                                 new Date(
@@ -191,52 +227,81 @@ const addComment = () => {
                     </div>
                 </div>
 
-                <!-- ... -->
-                <div
-                    class="bg-white overflow-hidden shadow-lg sm:rounded-lg p-6"
-                >
-                    <!-- ... -->
+                <!-- Комментарии -->
+                <div class="p-6 md:w-2/3 md:mx-auto">
+                    <button
+                        @click="toggleCommentField"
+                        id="commentsAnchor"
+                        class="inline-flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
+                    >
+                        {{ $t("Comments") }}
+                    </button>
 
-                    <!-- Комментарии -->
-                    <!-- <div class="mt-8">
-                        <h2 class="text-xl font-semibold mb-4">Комментарии</h2>
-
+                    <!-- Поле для добавления комментария с анимацией -->
+                    <transition name="comment">
                         <div
-                            v-for="(comment, index) in comments"
-                            :key="index"
-                            class="mb-4"
+                            v-if="showCommentField"
+                            class="mt-4"
+                            :style="{ height: showCommentField ? 'auto' : '0' }"
                         >
-                            <p class="text-gray-600 text-sm">{{ comment }}</p>
-                        </div>
-
-                        <div v-if="showCommentField">
                             <textarea
                                 v-model="newComment"
                                 class="w-full rounded-lg border border-gray-300 p-2 focus:outline-none"
                                 rows="4"
                                 placeholder="Оставьте комментарий"
                             ></textarea>
-                            <div class="flex justify-end mt-2">
-                                <button
-                                    @click="addComment"
-                                    class="bg-gray-800 text-white px-4 py-2 rounded-lg focus:outline-none"
+                            
+                            <div class="mt-2 flex justify-end">
+                                <PrimaryButton @click="addComment">
+                                    {{ $t("Add") }}
+                                </PrimaryButton>
+                            </div>
+
+                            <!-- Отображение комментариев -->
+                            <div
+                                class="overflow-hidden bg-white mt-4 shadow-lg sm:rounded-lg"
+                                v-if="
+                                    props.newsOnce.comments &&
+                                    props.newsOnce.comments.length
+                                "
+                            >
+                                <div
+                                    v-for="(comment, index) in props.newsOnce
+                                        .comments"
+                                    :key="index"
+                                    class="border border-indigo-300 rounded-lg p-3 m-4 text-justify text-lg text-gray-900"
                                 >
-                                    Добавить
-                                </button>
+                                    <p>{{ comment.content }}</p>
+                                </div>
                             </div>
                         </div>
-
-                        <div v-else>
-                            <button
-                                @click="toggleCommentField"
-                                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg focus:outline-none"
-                            >
-                                Добавить комментарий
-                            </button>
-                        </div>
-                    </div> -->
+                    </transition>
                 </div>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style>
+.comment-enter-active,
+.comment-leave-active {
+    transition: max-height 1s ease-in-out;
+}
+
+.comment-enter-from,
+.comment-leave-to {
+    max-height: 0;
+    overflow: hidden;
+    transition-delay: 0s; /* Убрать задержку */
+}
+
+.comment-enter-to,
+.comment-leave-from {
+    max-height: 1000px; /* Замените на достаточно большое значение */
+    overflow: hidden;
+}
+
+.comment-leave-active {
+    transition-duration: 0.2s; /* Уменьшить продолжительность анимации при закрытии */
+}
+</style>

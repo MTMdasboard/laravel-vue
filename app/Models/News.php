@@ -25,6 +25,7 @@ class News extends Model
         'published_at' => 'datetime:Y-m-d h:m',
         'views' => 'integer',
         'likes' => 'integer',
+        'user_id'=> 'integer',
     ];
 
     public static function getRules(): array
@@ -36,5 +37,10 @@ class News extends Model
             'published_at' =>['nullable', 'string', 'date'],
             'base64image' =>['nullable', new Base64ImageRule()],
         ];
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest('created_at');
     }
 }

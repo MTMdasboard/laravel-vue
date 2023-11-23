@@ -65,7 +65,7 @@ class NewsController extends Controller
     public function show(Request $request, $news)
     {
 
-        $newsOnce = News::query()->findOrFail($news, ['id', 'user_id', 'title', 'content', 'published_at', 'base64image', 'views', 'likes']);
+        $newsOnce = News::query()->with('comments')->findOrFail($news, ['id', 'user_id', 'title', 'content', 'published_at', 'base64image', 'views', 'likes']);
 
         $newsOnce->increment('views');
 
@@ -95,8 +95,11 @@ class NewsController extends Controller
         return Redirect::route('news.show', $news);
     }
 
-    public function delete($news)
+    public function delete(Request $request, $news)
     {
+        $newsModel = News::findOrFail($news);
+        $newsModel->comments()->delete(); // Удаление связанных комментариев
+        $newsModel->delete(); // Удаление новости
         return Redirect::route('news');
     }
 

@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\DonateController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\Posts\CommentController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -21,6 +21,8 @@ Route::patch("/news/{news}", [NewsController::class, "update"])->name("news.upda
 Route::delete("/news/{news}", [NewsController::class, "delete"])->name("news.delete");
 
 Route::get("/news/{news}/like", [NewsController::class, "like"])->name("news.like");
+
+Route::post('/news/{news}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 // Route::resource('/posts/{post}/comments', CommentController::class)->only(['index', 'show']);
 

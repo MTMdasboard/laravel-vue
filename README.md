@@ -24,9 +24,10 @@
 4. Установите зависимости Laravel: `composer install`
 5. Установите зависимости Vue.js: `npm install`
 6. Настройте подключение к базе данных в файле `.env`
-7. Выполните миграции базы данных: `php artisan migrate`
-8. Запустите локальный сервер: `php artisan serve`
-9. Запустите фронтенд: `npm run dev`
+7. Выполните миграции базы данных: `php artisan migrate` или же имортируйте схемы из файла `mtmdashboardlv.sql`
+8. Сгенерируйте Application ключ `php artisan key:generate`
+9. Выполните билд фронденда `npm run build` (или запустите разработку `npm run dev`)
+10. Запустите локальный сервер: `php artisan serve`
 
 ### Дополнительная информация:
 

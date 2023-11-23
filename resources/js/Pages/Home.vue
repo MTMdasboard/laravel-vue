@@ -67,6 +67,11 @@ const props = defineProps({
                         <p v-html="$t('The backend of this site is built on Laravel')"></p>
                         <p v-html="$t('The frontend is a monolithic Vue')"></p>
                         <p v-html="$t('The database hangs in the MySQL cloud')"></p>
+                        
+                        <a href='https://github.com/MTMdasboard/laravel-vue.git' target="_blank" rel="noopener noreferrer"
+                            class="mt-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            Github
+                        </a>
                     </div>
                 </div>
             </div>

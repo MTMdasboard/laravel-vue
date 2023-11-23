@@ -77,7 +77,10 @@ const displayedPages = computed(() => {
 
         <div class="py-12 flex w-full">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex justify-center">
-                <div class="">
+                <div v-if="!news || news.length === 0">
+                    <p class="text-center text-gray-600 mt-8">{{ $t('No news') }}</p>
+                </div>
+                <div v-else>
                     <!-- Отображение новостей -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <Link v-for="item in news" :key="item.id" :href="route('news.show', { news: item.id })"

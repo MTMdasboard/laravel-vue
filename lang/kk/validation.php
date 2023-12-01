@@ -56,6 +56,7 @@ return [
         'numeric' => ':Attribute мәні :value үлкен немесе тең болуы керек.',
         'string'  => ':Attribute мәні :value таңбалардан үлкен немесе тең болуы керек.',
     ],
+    'hex_color'            => ':attribute өріс жарамды он алтылық түс болуы керек.',
     'image'                => ':Attribute кескін болуы керек.',
     'in'                   => 'таңдалған :attribute жарамсыз.',
     'in_array'             => ':Attribute жолы :other ішінде жоқ.',
@@ -130,7 +131,6 @@ return [
     'required_without'     => ':Attribute жолы :values болмағанда толтырылуы керек.',
     'required_without_all' => ':Attribute жолы ешбір :values болмағанда толтырылуы керек.',
     'same'                 => ':Attribute және :other сәйкес болуы керек.',
-    'base64_image'         => ':Attribute 1КБ пен 100КБ арасындағы жарамды кескін болуы керек.',
     'size'                 => [
         'array'   => ':Attribute жиымы :size элементтен тұруы керек.',
         'file'    => ':Attribute көлемі :size килобайт болуы керек.',

@@ -27,4 +27,15 @@ class Handler extends ExceptionHandler
             //
         });
     }
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof PostTooLargeException) {
+
+            return Inertia::render('Error', [
+                'error' => __('http-error.PostTooLargeException'). ': 8MB',
+            ])->toResponse($request);
+        }
+
+        return parent::render($request, $exception);
+    }
 }

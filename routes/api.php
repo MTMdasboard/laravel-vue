@@ -18,3 +18,25 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Locale route
+|--------------------------------------------------------------------------
+|
+| Конечная точка api для смены языка
+|
+*/
+Route::post('locale', function () {
+    // Validate
+    $validated = request()->validate([
+        'language' => ['required'],
+    ]);
+    // Set locale
+    App::setLocale($validated['language']);
+    // Session
+    session()->put('locale', $validated['language']);
+    // Response
+    return redirect()->back();
+});

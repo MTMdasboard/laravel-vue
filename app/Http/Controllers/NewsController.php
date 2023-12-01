@@ -32,16 +32,16 @@ class NewsController extends Controller
 
         $limit = $validated['limit'] ?? 9;
 
-        $newsList = News::query()->latest('published_at')->paginate($limit);
+        $page = News::query()->latest('published_at')->paginate($limit);
 
-        return Inertia::render('news/index', compact('newsList'));
+        return Inertia::render('News/Index', compact('page'));
     }
 
     public function create()
     {
         $userList = User::all(['id', 'name']);
 
-        return Inertia::render('news/create', compact('userList'));
+        return Inertia::render('News/Create', compact('userList'));
 
     }
 
@@ -73,7 +73,7 @@ class NewsController extends Controller
             $newsOnce->user = User::query()->findOrFail($newsOnce->user_id, ['name']);
         }
 
-        return Inertia::render('news/show', compact('newsOnce'));
+        return Inertia::render('News/Show', compact('newsOnce'));
     }
 
     public function edit(Request $request, $news)
@@ -83,7 +83,7 @@ class NewsController extends Controller
 
         $userList = User::all(['id', 'name']);
 
-        return Inertia::render('news/edit', compact(['newsOnce', 'userList']));
+        return Inertia::render('News/Edit', compact(['newsOnce', 'userList']));
     }
 
     public function update(Request $request, $news)

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 
 defineProps({
     modelValue: {
@@ -11,18 +11,17 @@ defineProps({
     },
 });
 
-defineEmits(['update:modelValue']);
+defineEmits(["update:modelValue"]);
 
 const input = ref(null);
 
 onMounted(() => {
-    if (input.value.hasAttribute('autofocus')) {
+    if (input.value.hasAttribute("autofocus")) {
         input.value.focus();
     }
 });
 
 defineExpose({ focus: () => input.value.focus() });
-
 </script>
 
 <template>
@@ -32,7 +31,9 @@ defineExpose({ focus: () => input.value.focus() });
         @change="$emit('update:modelValue', $event.target.value)"
         ref="input"
     >
-        <option :value=null></option>
-        <option v-for="option in options" :key="option.id" :value="option.id">{{ option.name }}</option>
+        <option :value="null"></option>
+        <option v-for="option in options" :key="option.id" :value="option.id">
+            {{ option.name }}
+        </option>
     </select>
 </template>

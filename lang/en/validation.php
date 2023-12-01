@@ -56,6 +56,7 @@ return [
         'numeric' => 'The :attribute must be greater than or equal :value.',
         'string'  => 'The :attribute must be greater than or equal :value characters.',
     ],
+    'hex_color'            => 'The :attribute field must be a valid hexadecimal color.',
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
@@ -129,7 +130,6 @@ return [
     'required_with_all'    => 'The :attribute field is required when :values is present.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'base64_image'         => 'The :attribute must be a valid image between 1KB and 100KB.',
     'same'                 => 'The :attribute and :other must match.',
     'size'                 => [
         'array'   => 'The :attribute must contain :size items.',

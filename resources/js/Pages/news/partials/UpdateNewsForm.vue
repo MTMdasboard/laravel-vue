@@ -24,8 +24,6 @@ const props = defineProps({
     },
 });
 
-console.log(props.newsOnce);
-
 const form = useForm({
     user_id: props.newsOnce?.user_id ?? null,
     title: props.newsOnce?.title ?? "",

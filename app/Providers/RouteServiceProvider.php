@@ -38,6 +38,8 @@ class RouteServiceProvider extends ServiceProvider
                 require_once base_path('routes/web.php');
 
                 require_once base_path('routes/news.php');
+
+                require_once base_path('routes/files.php');
             } );
         });
     }
